@@ -28,7 +28,7 @@ public class OperationCountManager : MonoBehaviour
         OperationCount++;
     }
 
-    public static int GetOperationVount()
+    public static int GetOperationCount()
     {
         return OperationCount;
     }
