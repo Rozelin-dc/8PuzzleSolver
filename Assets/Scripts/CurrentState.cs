@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +41,30 @@ public class CurrentState : MonoBehaviour
 
     public static void Shuffle()
     {
+        System.Random Rnd = new System.Random();
+        int x1, y1, x2, y2;
+        char Swap;
+        for (int i = 0; i < 9; i++)
+        {
+            x1 = Rnd.Next(0, 3);
+            y1 = Rnd.Next(0, 3);
+            x2 = Rnd.Next(0, 3);
+            y2 = Rnd.Next(0, 3);
 
+            if (BlankCoordinate[0] == x1 && BlankCoordinate[1] == y1)
+            {
+                BlankCoordinate[0] = x2;
+                BlankCoordinate[1] = y2;
+            }
+            if (BlankCoordinate[0] == x2 && BlankCoordinate[1] == y2)
+            {
+                BlankCoordinate[0] = x1;
+                BlankCoordinate[1] = y1;
+            }
+
+            Swap = CurrentGrid[x1, y1];
+            CurrentGrid[x1, y1] = CurrentGrid[x2, y2];
+            CurrentGrid[x2, y2] = Swap;
+        }
     }
 }

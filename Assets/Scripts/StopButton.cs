@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StopButton : MonoBehaviour
 {
-    public static bool IsButtonDowned = false;
+    private static bool IsButtonDowned = false;
 
     // Start is called before the first frame update
     void Start()

@@ -6,10 +6,9 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    public static Stopwatch sw = new System.Diagnostics.Stopwatch();
-
     public Text Text;
 
+    private static Stopwatch sw = new System.Diagnostics.Stopwatch();
     private double ExecutionTime;
 
     // Start is called before the first frame update
