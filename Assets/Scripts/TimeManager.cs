@@ -10,6 +10,8 @@ public class TimeManager : MonoBehaviour
 
     public Text Text;
 
+    private double ExecutionTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,8 @@ public class TimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text.text = "実行時間: " + (sw.ElapsedMilliseconds / 1000) + "[sec]";
+        ExecutionTime = (double)sw.ElapsedMilliseconds / 1000;
+        Text.text = "実行時間: " + ExecutionTime.ToString("f3") + "[sec]";
     }
 
     public static void ResetTimer()
