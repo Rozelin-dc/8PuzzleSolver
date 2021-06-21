@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CurrentState : MonoBehaviour
 {
-    public static int[,] CurrentGrid = new int[,] { {2, 5, 8 }, {3, 0, 7 }, {1, 6, 4 } };
+    public static char[,] CurrentGrid = new char[,] { {'2', '5', '8' }, {'3', ' ', '7' }, {'1', '6', '4' } };
     public static int[] BlankCoordinate = new int[] {2, 2 };
 
     public GameObject Text00;
