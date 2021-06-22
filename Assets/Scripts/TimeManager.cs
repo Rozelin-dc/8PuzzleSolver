@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    public Text Text;
+    public Text RealTimeText;
+    public Text SubstantialTimeText;
 
     private static Stopwatch sw = new System.Diagnostics.Stopwatch();
     private double ExecutionTime;
@@ -21,7 +22,8 @@ public class TimeManager : MonoBehaviour
     void Update()
     {
         ExecutionTime = (double)sw.ElapsedMilliseconds / 1000;
-        Text.text = "実行時間: " + ExecutionTime.ToString("f3") + "[sec]";
+        RealTimeText.text = "実行時間: " + ExecutionTime.ToString("f3") + "[sec]";
+        SubstantialTimeText.text = "実質実行時間:" + (ExecutionTime - (OperationCountManager.GetOperationCount() * 0.025)).ToString("f3") + "[sec]";
     }
 
     public static void ResetTimer()
