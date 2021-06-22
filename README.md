@@ -1,4 +1,4 @@
-## 8Puzzle Solver
+# 8Puzzle Solver
 
 Unityで8パズルの解法探索を視覚化しつつ行う
 
