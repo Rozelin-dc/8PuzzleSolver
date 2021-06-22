@@ -24,12 +24,17 @@ public class OperationCountManager : MonoBehaviour
 
     public static async void CountUp()
     {
-        await Task.Delay(50);
+        await Task.Delay(25);
         OperationCount++;
     }
 
     public static int GetOperationCount()
     {
         return OperationCount;
+    }
+
+    public static void ResetCout()
+    {
+        OperationCount = 0;
     }
 }
