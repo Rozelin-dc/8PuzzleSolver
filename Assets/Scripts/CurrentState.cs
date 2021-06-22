@@ -32,8 +32,10 @@ public class CurrentState : MonoBehaviour
         CurrentGrid.Grid[2, 0] = '1';
         CurrentGrid.Grid[2, 1] = '6';
         CurrentGrid.Grid[2, 2] = '4';
-        CurrentGrid.BlankCoordinate[0] = 2;
-        CurrentGrid.BlankCoordinate[1] = 2;
+        CurrentGrid.BlankCoordinate[0] = 1;
+        CurrentGrid.BlankCoordinate[1] = 1;
+
+        Shuffle();
     }
 
     // Update is called once per frame
@@ -62,20 +64,20 @@ public class CurrentState : MonoBehaviour
             x2 = Rnd.Next(0, 3);
             y2 = Rnd.Next(0, 3);
 
-            if (CurrentGrid.BlankCoordinate[0] == x1 && CurrentGrid.BlankCoordinate[1] == y1)
+            if (CurrentGrid.BlankCoordinate[0] == y1 && CurrentGrid.BlankCoordinate[1] == x1)
             {
-                CurrentGrid.BlankCoordinate[0] = x2;
-                CurrentGrid.BlankCoordinate[1] = y2;
+                CurrentGrid.BlankCoordinate[0] = y2;
+                CurrentGrid.BlankCoordinate[1] = x2;
             }
-            if (CurrentGrid.BlankCoordinate[0] == x2 && CurrentGrid.BlankCoordinate[1] == y2)
+            else if (CurrentGrid.BlankCoordinate[0] == y2 && CurrentGrid.BlankCoordinate[1] == x2)
             {
-                CurrentGrid.BlankCoordinate[0] = x1;
-                CurrentGrid.BlankCoordinate[1] = y1;
+                CurrentGrid.BlankCoordinate[0] = y1;
+                CurrentGrid.BlankCoordinate[1] = x1;
             }
 
-            Swap = CurrentGrid.Grid[x1, y1];
-            CurrentGrid.Grid[x1, y1] = CurrentGrid.Grid[x2, y2];
-            CurrentGrid.Grid[x2, y2] = Swap;
+            Swap = CurrentGrid.Grid[y1, x1];
+            CurrentGrid.Grid[y1, x1] = CurrentGrid.Grid[y2, x2];
+            CurrentGrid.Grid[y2, x2] = Swap;
         }
     }
 }

@@ -22,10 +22,11 @@ public class OperationCountManager : MonoBehaviour
         Text.text = "操作回数: " + OperationCount + "回";
     }
 
-    public static async void CountUp()
+    public static async Task CountUp()
     {
-        await Task.Delay(25);
+        await Task.Delay(100);
         OperationCount++;
+        return;
     }
 
     public static int GetOperationCount()
