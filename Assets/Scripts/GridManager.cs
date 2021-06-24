@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +7,47 @@ public struct GridData
 {
     public char[,] Grid; // Grid[y, x]
     public int[] BlankCoordinate; // BlankCoordinate[0] = y, BlankCoordinate[1] = x
+
+    public override int GetHashCode()
+    {
+        return Grid.GetHashCode() ^ BlankCoordinate.GetHashCode();
+    }
+
+    public override bool Equals(object Obj)
+    {
+        var Other = Obj as GridData?;
+        if (Other == null) return false;
+
+        if (this.BlankCoordinate[0] != Other?.BlankCoordinate[0]) return false;
+        if (this.BlankCoordinate[1] != Other?.BlankCoordinate[1]) return false;
+
+        if (this.Grid[0, 0] != Other?.Grid[0, 0]) return false;
+        if (this.Grid[0, 1] != Other?.Grid[0, 1]) return false;
+        if (this.Grid[0, 2] != Other?.Grid[0, 2]) return false;
+        if (this.Grid[1, 0] != Other?.Grid[1, 0]) return false;
+        if (this.Grid[1, 1] != Other?.Grid[1, 1]) return false;
+        if (this.Grid[1, 2] != Other?.Grid[1, 2]) return false;
+        if (this.Grid[2, 0] != Other?.Grid[2, 0]) return false;
+        if (this.Grid[2, 1] != Other?.Grid[2, 1]) return false;
+        if (this.Grid[2, 2] != Other?.Grid[2, 2]) return false;
+
+        return true;
+    }
+}
+
+public struct GridDataWithCost
+{
+    public GridData GridData;
+    public int CostUpToCurrent;
+    public int ExpectedTotalCost;
 }
 
 public class GridManager : MonoBehaviour
 {
     private static GridData GoalGrid = new GridData();
+
+    // key: characters on the board, value: value[0] = y, value[1] = x
+    private static Dictionary<char, int[]> GoalGridCoordinateData = new Dictionary<char, int[]>();
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +65,16 @@ public class GridManager : MonoBehaviour
         GoalGrid.Grid[2, 2] = ' ';
         GoalGrid.BlankCoordinate[0] = 2;
         GoalGrid.BlankCoordinate[1] = 2;
+
+        GoalGridCoordinateData['1'] = new int[] { 0, 0 };
+        GoalGridCoordinateData['2'] = new int[] { 0, 1 };
+        GoalGridCoordinateData['3'] = new int[] { 0, 2 };
+        GoalGridCoordinateData['4'] = new int[] { 1, 0 };
+        GoalGridCoordinateData['5'] = new int[] { 1, 1 };
+        GoalGridCoordinateData['6'] = new int[] { 1, 2 };
+        GoalGridCoordinateData['7'] = new int[] { 2, 0 };
+        GoalGridCoordinateData['8'] = new int[] { 2, 1 };
+        GoalGridCoordinateData[' '] = new int[] { 2, 2 };
     }
 
     // Update is called once per frame
@@ -41,27 +88,27 @@ public class GridManager : MonoBehaviour
         CurrentState.Shuffle();
     }
 
-    public static bool IsTwoGridDataEqal(GridData Grid1, GridData Grid2)
-    {
-        if (Grid1.BlankCoordinate[0] != Grid2.BlankCoordinate[0]) return false;
-        if (Grid1.BlankCoordinate[1] != Grid2.BlankCoordinate[1]) return false;
-
-        if (Grid1.Grid[0, 0] != Grid2.Grid[0, 0]) return false;
-        if (Grid1.Grid[0, 1] != Grid2.Grid[0, 1]) return false;
-        if (Grid1.Grid[0, 2] != Grid2.Grid[0, 2]) return false;
-        if (Grid1.Grid[1, 0] != Grid2.Grid[1, 0]) return false;
-        if (Grid1.Grid[1, 1] != Grid2.Grid[1, 1]) return false;
-        if (Grid1.Grid[1, 2] != Grid2.Grid[1, 2]) return false;
-        if (Grid1.Grid[2, 0] != Grid2.Grid[2, 0]) return false;
-        if (Grid1.Grid[2, 1] != Grid2.Grid[2, 1]) return false;
-        if (Grid1.Grid[2, 2] != Grid2.Grid[2, 2]) return false;
-
-        return true;
-    }
-
     public static bool IsGoal(GridData Grid)
     {
-        return IsTwoGridDataEqal(GoalGrid, Grid);
+        return GoalGrid.Equals(Grid);
+    }
+
+    public static int Heuristic(GridData Grid)
+    {
+        int ans = 0;
+        int[] CorrectCorrdinate;
+
+        for (int y = 0; y < 3; y++)
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                CorrectCorrdinate = GoalGridCoordinateData[Grid.Grid[y, x]];
+                ans += Math.Abs(y - CorrectCorrdinate[0]);
+                ans += Math.Abs(x - CorrectCorrdinate[1]);
+            }
+        }
+
+        return ans;
     }
 
     public static GridData? Up(GridData Grid)

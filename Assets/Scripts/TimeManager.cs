@@ -23,7 +23,7 @@ public class TimeManager : MonoBehaviour
     {
         ExecutionTime = (double)sw.ElapsedMilliseconds / 1000;
         RealTimeText.text = "実行時間: " + ExecutionTime.ToString("f3") + "[sec]";
-        SubstantialTimeText.text = "実質実行時間:" + (ExecutionTime - (OperationCountManager.GetOperationCount() * 0.1)).ToString("f3") + "[sec]";
+        SubstantialTimeText.text = "実質実行時間:" + (ExecutionTime - (OperationCountManager.GetOperationCount() * 0.05)).ToString("f3") + "[sec]";
     }
 
     public static void ResetTimer()

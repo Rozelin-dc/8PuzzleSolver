@@ -24,6 +24,7 @@ public class RandomSearch : MonoBehaviour
         int flag;
         GridData? TemporarySavedGrid = null;
 
+        StopButton.ResetIsButtonDowned();
         OperationCountManager.ResetCout();
         TimeManager.ResetTimer();
         TimeManager.StartTimer();

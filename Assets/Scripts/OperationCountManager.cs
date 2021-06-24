@@ -24,7 +24,7 @@ public class OperationCountManager : MonoBehaviour
 
     public static async Task CountUp()
     {
-        await Task.Delay(100);
+        await Task.Delay(50);
         OperationCount++;
         return;
     }
