@@ -27,6 +27,8 @@ public class AStarSearch : MonoBehaviour
         HashSet<string> VisitedGrid = new HashSet<string>();
         List<GridDataWithCost> Open = new List<GridDataWithCost>();
 
+        VisitedGrid.Add(CurrentState.CurrentGrid.GridToString());
+
         TemporarySavedGridWithCost.GridData = CurrentState.CurrentGrid.Copy();
         TemporarySavedGridWithCost.CostUpToCurrent = 0;
         TemporarySavedGridWithCost.ExpectedTotalCost = GridManager.Heuristic(TemporarySavedGridWithCost.GridData);
