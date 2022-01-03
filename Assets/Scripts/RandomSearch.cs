@@ -47,7 +47,7 @@ public class RandomSearch : MonoBehaviour
                 {
                     await OperationCountManager.CountUp();
                     CurrentState.CurrentGrid = (GridData)TemporarySavedGrid;
-                    continue;
+                    flag = 5;
                 }
                 flag++;
             }
@@ -58,7 +58,7 @@ public class RandomSearch : MonoBehaviour
                 {
                     await OperationCountManager.CountUp();
                     CurrentState.CurrentGrid = (GridData)TemporarySavedGrid;
-                    continue;
+                    flag = 5;
                 }
                 flag++;
             }
@@ -69,7 +69,7 @@ public class RandomSearch : MonoBehaviour
                 {
                     await OperationCountManager .CountUp();
                     CurrentState.CurrentGrid = (GridData)TemporarySavedGrid;
-                    continue;
+                    flag = 5;
                 }
                 flag++;
             }
@@ -80,9 +80,8 @@ public class RandomSearch : MonoBehaviour
                 {
                     await OperationCountManager .CountUp();
                     CurrentState.CurrentGrid = (GridData)TemporarySavedGrid;
-                    continue;
+                    flag = 5;
                 }
-                flag++;
             }
 
         }
