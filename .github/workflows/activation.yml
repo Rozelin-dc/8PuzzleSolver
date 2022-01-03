@@ -10,7 +10,7 @@ jobs:
         id: getManualLicenseFile
         uses: webbertakken/unity-request-manual-activation-file@v1.1
         with:
-          unityVersion: 2019.4.16f1 # ※使用するUnityのバージョンに一致させます
+          unityVersion: 2019.3.2f1 # ※使用するUnityのバージョンに一致させます
       # Upload artifact (Unity_vXXXX.X.XXXX.alf)
       - name: Expose as artifact
         uses: actions/upload-artifact@v1
