@@ -8,6 +8,22 @@ public struct GridData
     public char[,] Grid; // Grid[y, x]
     public int[] BlankCoordinate; // BlankCoordinate[0] = y, BlankCoordinate[1] = x
 
+    public string GridToString()
+    {
+        string data = "";
+        data += Grid[0, 0].ToString();
+        data += Grid[0, 1].ToString();
+        data += Grid[0, 2].ToString();
+        data += Grid[1, 0].ToString();
+        data += Grid[1, 1].ToString();
+        data += Grid[1, 2].ToString();
+        data += Grid[2, 0].ToString();
+        data += Grid[2, 1].ToString();
+        data += Grid[2, 2].ToString();
+
+        return data;
+    }
+
     public override int GetHashCode()
     {
         return Grid.GetHashCode() ^ BlankCoordinate.GetHashCode();
@@ -115,39 +131,63 @@ public class GridManager : MonoBehaviour
     {
         if (Grid.BlankCoordinate[0] == 2) return null;
 
-        Grid.Grid[Grid.BlankCoordinate[0], Grid.BlankCoordinate[1]] = Grid.Grid[Grid.BlankCoordinate[0] + 1, Grid.BlankCoordinate[1]];
-        Grid.Grid[Grid.BlankCoordinate[0] + 1, Grid.BlankCoordinate[1]] = ' ';
-        Grid.BlankCoordinate[0] += 1;
-        return Grid;
+        GridData CopyedGrid = new GridData();
+        CopyedGrid.Grid = Grid.Grid;
+        CopyedGrid.BlankCoordinate = Grid.BlankCoordinate;
+
+        CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1]] =
+            CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0] + 1, CopyedGrid.BlankCoordinate[1]];
+        CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0] + 1, CopyedGrid.BlankCoordinate[1]] = ' ';
+        CopyedGrid.BlankCoordinate[0] += 1;
+
+        return CopyedGrid;
     }
 
     public static GridData? Down(GridData Grid)
     {
         if (Grid.BlankCoordinate[0] == 0) return null;
 
-        Grid.Grid[Grid.BlankCoordinate[0], Grid.BlankCoordinate[1]] = Grid.Grid[Grid.BlankCoordinate[0] - 1, Grid.BlankCoordinate[1]];
-        Grid.Grid[Grid.BlankCoordinate[0] - 1, Grid.BlankCoordinate[1]] = ' ';
-        Grid.BlankCoordinate[0] -= 1;
-        return Grid;
+        GridData CopyedGrid = new GridData();
+        CopyedGrid.Grid = Grid.Grid;
+        CopyedGrid.BlankCoordinate = Grid.BlankCoordinate;
+
+        CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1]] =
+            CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0] - 1, CopyedGrid.BlankCoordinate[1]];
+        CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0] - 1, CopyedGrid.BlankCoordinate[1]] = ' ';
+        CopyedGrid.BlankCoordinate[0] -= 1;
+
+        return CopyedGrid;
     }
 
     public static GridData? Left(GridData Grid)
     {
         if (Grid.BlankCoordinate[1] == 2) return null;
 
-        Grid.Grid[Grid.BlankCoordinate[0], Grid.BlankCoordinate[1]] = Grid.Grid[Grid.BlankCoordinate[0], Grid.BlankCoordinate[1] + 1];
-        Grid.Grid[Grid.BlankCoordinate[0], Grid.BlankCoordinate[1] + 1] = ' ';
-        Grid.BlankCoordinate[1] += 1;
-        return Grid;
+        GridData CopyedGrid = new GridData();
+        CopyedGrid.Grid = Grid.Grid;
+        CopyedGrid.BlankCoordinate = Grid.BlankCoordinate;
+
+        CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1]] =
+            CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1] + 1];
+        CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1] + 1] = ' ';
+        CopyedGrid.BlankCoordinate[1] += 1;
+
+        return CopyedGrid;
     }
 
     public static GridData? Right(GridData Grid)
     {
         if (Grid.BlankCoordinate[1] == 0) return null;
 
-        Grid.Grid[Grid.BlankCoordinate[0], Grid.BlankCoordinate[1]] = Grid.Grid[Grid.BlankCoordinate[0], Grid.BlankCoordinate[1] - 1];
-        Grid.Grid[Grid.BlankCoordinate[0], Grid.BlankCoordinate[1] - 1] = ' ';
-        Grid.BlankCoordinate[1] -= 1;
-        return Grid;
+        GridData CopyedGrid = new GridData();
+        CopyedGrid.Grid = Grid.Grid;
+        CopyedGrid.BlankCoordinate = Grid.BlankCoordinate;
+
+        CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1]] =
+            CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1] - 1];
+        CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1] - 1] = ' ';
+        CopyedGrid.BlankCoordinate[1] -= 1;
+
+        return CopyedGrid;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,10 +21,10 @@ public class AStarSearch : MonoBehaviour
     // Do A* search if button clicked
     public async void OnClick()
     {
-        System.Random Rnd = new System.Random();
         GridData? TemporarySavedGrid = null;
-        GridDataWithCost TargetGridDataWithCost, TemporarySavedGridWithCost;
-        Dictionary<GridData, bool> VisitedGrid = new Dictionary<GridData, bool>();
+        GridDataWithCost TargetGridDataWithCost;
+        GridDataWithCost TemporarySavedGridWithCost = new GridDataWithCost();
+        HashSet<string> VisitedGrid = new HashSet<string>();
         List<GridDataWithCost> Open = new List<GridDataWithCost>();
 
         TemporarySavedGridWithCost.GridData = CurrentState.CurrentGrid;
@@ -50,6 +51,9 @@ public class AStarSearch : MonoBehaviour
             TargetGridDataWithCost = Open[0];
             Open.RemoveAt(0);
 
+            Debug.Log("cost: " + TargetGridDataWithCost.ExpectedTotalCost);
+            Debug.Log("count: " + Open.Count());
+
             await OperationCountManager.CountUp();
             CurrentState.CurrentGrid = TargetGridDataWithCost.GridData;
 
@@ -60,51 +64,55 @@ public class AStarSearch : MonoBehaviour
             }
 
             TemporarySavedGrid = GridManager.Up(TargetGridDataWithCost.GridData);
-            if (TemporarySavedGrid != null && !VisitedGrid.ContainsKey((GridData)TemporarySavedGrid))
+            if (TemporarySavedGrid != null && !VisitedGrid.Contains(TemporarySavedGrid?.GridToString()))
             {
+                TemporarySavedGridWithCost = new GridDataWithCost();
                 TemporarySavedGridWithCost.GridData = (GridData)TemporarySavedGrid;
                 TemporarySavedGridWithCost.CostUpToCurrent = TargetGridDataWithCost.CostUpToCurrent + 1;
                 TemporarySavedGridWithCost.ExpectedTotalCost =
                     TemporarySavedGridWithCost.CostUpToCurrent + GridManager.Heuristic(TemporarySavedGridWithCost.GridData);
 
                 Open.Add(TemporarySavedGridWithCost);
-                VisitedGrid[(GridData)TemporarySavedGrid] = true;
+                VisitedGrid.Add(TemporarySavedGrid?.GridToString());
             }
 
             TemporarySavedGrid = GridManager.Down(TargetGridDataWithCost.GridData);
-            if (TemporarySavedGrid != null && !VisitedGrid.ContainsKey((GridData)TemporarySavedGrid))
+            if (TemporarySavedGrid != null && !VisitedGrid.Contains(TemporarySavedGrid?.GridToString()))
             {
+                TemporarySavedGridWithCost = new GridDataWithCost();
                 TemporarySavedGridWithCost.GridData = (GridData)TemporarySavedGrid;
                 TemporarySavedGridWithCost.CostUpToCurrent = TargetGridDataWithCost.CostUpToCurrent + 1;
                 TemporarySavedGridWithCost.ExpectedTotalCost =
                     TemporarySavedGridWithCost.CostUpToCurrent + GridManager.Heuristic(TemporarySavedGridWithCost.GridData);
 
                 Open.Add(TemporarySavedGridWithCost);
-                VisitedGrid[(GridData)TemporarySavedGrid] = true;
+                VisitedGrid.Add(TemporarySavedGrid?.GridToString());
             }
 
             TemporarySavedGrid = GridManager.Left(TargetGridDataWithCost.GridData);
-            if (TemporarySavedGrid != null && !VisitedGrid.ContainsKey((GridData)TemporarySavedGrid))
+            if (TemporarySavedGrid != null && !VisitedGrid.Contains(TemporarySavedGrid?.GridToString()))
             {
+                TemporarySavedGridWithCost = new GridDataWithCost();
                 TemporarySavedGridWithCost.GridData = (GridData)TemporarySavedGrid;
                 TemporarySavedGridWithCost.CostUpToCurrent = TargetGridDataWithCost.CostUpToCurrent + 1;
                 TemporarySavedGridWithCost.ExpectedTotalCost =
                     TemporarySavedGridWithCost.CostUpToCurrent + GridManager.Heuristic(TemporarySavedGridWithCost.GridData);
 
                 Open.Add(TemporarySavedGridWithCost);
-                VisitedGrid[(GridData)TemporarySavedGrid] = true;
+                VisitedGrid.Add(TemporarySavedGrid?.GridToString());
             }
 
             TemporarySavedGrid = GridManager.Right(TargetGridDataWithCost.GridData);
-            if (TemporarySavedGrid != null && !VisitedGrid.ContainsKey((GridData)TemporarySavedGrid))
+            if (TemporarySavedGrid != null && !VisitedGrid.Contains(TemporarySavedGrid?.GridToString()))
             {
+                TemporarySavedGridWithCost = new GridDataWithCost();
                 TemporarySavedGridWithCost.GridData = (GridData)TemporarySavedGrid;
                 TemporarySavedGridWithCost.CostUpToCurrent = TargetGridDataWithCost.CostUpToCurrent + 1;
                 TemporarySavedGridWithCost.ExpectedTotalCost =
                     TemporarySavedGridWithCost.CostUpToCurrent + GridManager.Heuristic(TemporarySavedGridWithCost.GridData);
 
                 Open.Add(TemporarySavedGridWithCost);
-                VisitedGrid[(GridData)TemporarySavedGrid] = true;
+                VisitedGrid.Add(TemporarySavedGrid?.GridToString());
             }
 
             // Sort Open
