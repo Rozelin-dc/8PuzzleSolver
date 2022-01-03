@@ -27,7 +27,7 @@ public class AStarSearch : MonoBehaviour
         HashSet<string> VisitedGrid = new HashSet<string>();
         List<GridDataWithCost> Open = new List<GridDataWithCost>();
 
-        TemporarySavedGridWithCost.GridData = CurrentState.CurrentGrid;
+        TemporarySavedGridWithCost.GridData = CurrentState.CurrentGrid.Copy();
         TemporarySavedGridWithCost.CostUpToCurrent = 0;
         TemporarySavedGridWithCost.ExpectedTotalCost = GridManager.Heuristic(TemporarySavedGridWithCost.GridData);
 
@@ -51,11 +51,8 @@ public class AStarSearch : MonoBehaviour
             TargetGridDataWithCost = Open[0];
             Open.RemoveAt(0);
 
-            Debug.Log("cost: " + TargetGridDataWithCost.ExpectedTotalCost);
-            Debug.Log("count: " + Open.Count());
-
             await OperationCountManager.CountUp();
-            CurrentState.CurrentGrid = TargetGridDataWithCost.GridData;
+            CurrentState.CurrentGrid = TargetGridDataWithCost.GridData.Copy();
 
             if (GridManager.IsGoal(CurrentState.CurrentGrid))
             {
@@ -67,7 +64,7 @@ public class AStarSearch : MonoBehaviour
             if (TemporarySavedGrid != null && !VisitedGrid.Contains(TemporarySavedGrid?.GridToString()))
             {
                 TemporarySavedGridWithCost = new GridDataWithCost();
-                TemporarySavedGridWithCost.GridData = (GridData)TemporarySavedGrid;
+                TemporarySavedGridWithCost.GridData = ((GridData)TemporarySavedGrid).Copy();
                 TemporarySavedGridWithCost.CostUpToCurrent = TargetGridDataWithCost.CostUpToCurrent + 1;
                 TemporarySavedGridWithCost.ExpectedTotalCost =
                     TemporarySavedGridWithCost.CostUpToCurrent + GridManager.Heuristic(TemporarySavedGridWithCost.GridData);
@@ -80,7 +77,7 @@ public class AStarSearch : MonoBehaviour
             if (TemporarySavedGrid != null && !VisitedGrid.Contains(TemporarySavedGrid?.GridToString()))
             {
                 TemporarySavedGridWithCost = new GridDataWithCost();
-                TemporarySavedGridWithCost.GridData = (GridData)TemporarySavedGrid;
+                TemporarySavedGridWithCost.GridData = ((GridData)TemporarySavedGrid).Copy();
                 TemporarySavedGridWithCost.CostUpToCurrent = TargetGridDataWithCost.CostUpToCurrent + 1;
                 TemporarySavedGridWithCost.ExpectedTotalCost =
                     TemporarySavedGridWithCost.CostUpToCurrent + GridManager.Heuristic(TemporarySavedGridWithCost.GridData);
@@ -93,7 +90,7 @@ public class AStarSearch : MonoBehaviour
             if (TemporarySavedGrid != null && !VisitedGrid.Contains(TemporarySavedGrid?.GridToString()))
             {
                 TemporarySavedGridWithCost = new GridDataWithCost();
-                TemporarySavedGridWithCost.GridData = (GridData)TemporarySavedGrid;
+                TemporarySavedGridWithCost.GridData = ((GridData)TemporarySavedGrid).Copy();
                 TemporarySavedGridWithCost.CostUpToCurrent = TargetGridDataWithCost.CostUpToCurrent + 1;
                 TemporarySavedGridWithCost.ExpectedTotalCost =
                     TemporarySavedGridWithCost.CostUpToCurrent + GridManager.Heuristic(TemporarySavedGridWithCost.GridData);
@@ -106,7 +103,7 @@ public class AStarSearch : MonoBehaviour
             if (TemporarySavedGrid != null && !VisitedGrid.Contains(TemporarySavedGrid?.GridToString()))
             {
                 TemporarySavedGridWithCost = new GridDataWithCost();
-                TemporarySavedGridWithCost.GridData = (GridData)TemporarySavedGrid;
+                TemporarySavedGridWithCost.GridData = ((GridData)TemporarySavedGrid).Copy();
                 TemporarySavedGridWithCost.CostUpToCurrent = TargetGridDataWithCost.CostUpToCurrent + 1;
                 TemporarySavedGridWithCost.ExpectedTotalCost =
                     TemporarySavedGridWithCost.CostUpToCurrent + GridManager.Heuristic(TemporarySavedGridWithCost.GridData);

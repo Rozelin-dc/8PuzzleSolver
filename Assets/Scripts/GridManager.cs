@@ -24,6 +24,15 @@ public struct GridData
         return data;
     }
 
+    public GridData Copy()
+    {
+        GridData NewStruct = new GridData();
+        NewStruct.Grid = (char[,])Grid.Clone();
+        NewStruct.BlankCoordinate = (int[])BlankCoordinate.Clone();
+
+        return NewStruct;
+    }
+
     public override int GetHashCode()
     {
         return Grid.GetHashCode() ^ BlankCoordinate.GetHashCode();
@@ -131,9 +140,7 @@ public class GridManager : MonoBehaviour
     {
         if (Grid.BlankCoordinate[0] == 2) return null;
 
-        GridData CopyedGrid = new GridData();
-        CopyedGrid.Grid = Grid.Grid;
-        CopyedGrid.BlankCoordinate = Grid.BlankCoordinate;
+        GridData CopyedGrid = Grid.Copy();
 
         CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1]] =
             CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0] + 1, CopyedGrid.BlankCoordinate[1]];
@@ -147,9 +154,7 @@ public class GridManager : MonoBehaviour
     {
         if (Grid.BlankCoordinate[0] == 0) return null;
 
-        GridData CopyedGrid = new GridData();
-        CopyedGrid.Grid = Grid.Grid;
-        CopyedGrid.BlankCoordinate = Grid.BlankCoordinate;
+        GridData CopyedGrid = Grid.Copy();
 
         CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1]] =
             CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0] - 1, CopyedGrid.BlankCoordinate[1]];
@@ -163,9 +168,7 @@ public class GridManager : MonoBehaviour
     {
         if (Grid.BlankCoordinate[1] == 2) return null;
 
-        GridData CopyedGrid = new GridData();
-        CopyedGrid.Grid = Grid.Grid;
-        CopyedGrid.BlankCoordinate = Grid.BlankCoordinate;
+        GridData CopyedGrid = Grid.Copy();
 
         CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1]] =
             CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1] + 1];
@@ -179,9 +182,7 @@ public class GridManager : MonoBehaviour
     {
         if (Grid.BlankCoordinate[1] == 0) return null;
 
-        GridData CopyedGrid = new GridData();
-        CopyedGrid.Grid = Grid.Grid;
-        CopyedGrid.BlankCoordinate = Grid.BlankCoordinate;
+        GridData CopyedGrid = Grid.Copy();
 
         CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1]] =
             CopyedGrid.Grid[CopyedGrid.BlankCoordinate[0], CopyedGrid.BlankCoordinate[1] - 1];
