@@ -24,7 +24,7 @@ public class RandomSearch : MonoBehaviour
         int flag;
         GridData? TemporarySavedGrid = null;
 
-        StopButton.ResetIsButtonDowned();
+        StopButton.IsButtonDowned = false;
         OperationCountManager.ResetCout();
         TimeManager.ResetTimer();
         TimeManager.StartTimer();
@@ -32,10 +32,10 @@ public class RandomSearch : MonoBehaviour
         while (!GridManager.IsGoal(CurrentState.CurrentGrid))
         {
             // When the Force Quit button is pressed
-            if (StopButton.GetIsButtonDowned())
+            if (StopButton.IsButtonDowned)
             {
                 TimeManager.StopTimer();
-                StopButton.ResetIsButtonDowned();
+                StopButton.IsButtonDowned = false;
                 return;
             }
 

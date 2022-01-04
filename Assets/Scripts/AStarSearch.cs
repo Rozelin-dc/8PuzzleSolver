@@ -35,7 +35,7 @@ public class AStarSearch : MonoBehaviour
 
         Open.Add(TemporarySavedGridWithCost);
 
-        StopButton.ResetIsButtonDowned();
+        StopButton.IsButtonDowned = false;
         OperationCountManager.ResetCout();
         TimeManager.ResetTimer();
         TimeManager.StartTimer();
@@ -43,10 +43,10 @@ public class AStarSearch : MonoBehaviour
         while (!GridManager.IsGoal(CurrentState.CurrentGrid) && Open.Count() > 0)
         {
             // When the Force Quit button is pressed
-            if (StopButton.GetIsButtonDowned())
+            if (StopButton.IsButtonDowned)
             {
                 TimeManager.StopTimer();
-                StopButton.ResetIsButtonDowned();
+                StopButton.IsButtonDowned = false;
                 return;
             }
 

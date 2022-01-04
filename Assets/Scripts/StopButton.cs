@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StopButton : MonoBehaviour
 {
-    private static bool IsButtonDowned = false;
+    public static bool IsButtonDowned = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,15 +21,5 @@ public class StopButton : MonoBehaviour
     public void OnClick()
     {
         IsButtonDowned = true;
-    }
-
-    public static bool GetIsButtonDowned()
-    {
-        return IsButtonDowned;
-    }
-
-    public static void ResetIsButtonDowned()
-    {
-        IsButtonDowned = false;
     }
 }

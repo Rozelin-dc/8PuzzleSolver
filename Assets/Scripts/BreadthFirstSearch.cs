@@ -28,7 +28,7 @@ public class BreadthFirstSearch : MonoBehaviour
         GridData TargetGridData;
         GridData? TemporarySavedGrid;
 
-        StopButton.ResetIsButtonDowned();
+        StopButton.IsButtonDowned = false;
         OperationCountManager.ResetCout();
         TimeManager.ResetTimer();
         TimeManager.StartTimer();
@@ -36,10 +36,10 @@ public class BreadthFirstSearch : MonoBehaviour
         while (!GridManager.IsGoal(CurrentState.CurrentGrid) && Que.Count > 0)
         {
             // When the Force Quit button is pressed
-            if (StopButton.GetIsButtonDowned())
+            if (StopButton.IsButtonDowned)
             {
                 TimeManager.StopTimer();
-                StopButton.ResetIsButtonDowned();
+                StopButton.IsButtonDowned = false;
                 return;
             }
 
